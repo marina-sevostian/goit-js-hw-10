@@ -15,7 +15,13 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
-
+* {
+  box-sizing: border-box;
+}
+img {
+  display: block;
+  max-width: 100%;
+}
 body {
   display: flex;
   flex-direction: column;
@@ -30,6 +36,6 @@ main {
 main:has(.back-link) {
   text-align: center;
 }
-input {
+/* input {
   font-family: inherit;
-}
+} */
