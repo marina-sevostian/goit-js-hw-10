@@ -23,9 +23,7 @@ iziToast.warning({
   close: true,
 });
 iziToast.info({
-  // need add link icon
-  icon: './img/informing-icon.svg',
-  iconColor: 'none',
+  iconUrl: './img/informing-icon.svg',
   title: 'Hello',
   message: 'Welcome!',
   color: '#09f',
