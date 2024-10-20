@@ -16,7 +16,7 @@ let isSuccess;
 function createPromise(delay) {
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (inputRadio.value === fulfilled) {
+      if (isSelected.value === fulfilled) {
         isSuccess = true;
       } else {
         isSuccess = false;
@@ -36,11 +36,12 @@ btnCreatePromise.addEventListener('submit', event => {
   event.preventDefault();
   delay = Number(delay.value);
   for (let index = 0; index <= inputRadio.length; index++) {
-    if (inputRadio[index].checked) {
-      inputRadio.value = inputRadio[index].value;
+    if (isSelected[index].checked) {
+      isSelected.value = isSelected[index].value;
       break;
     }
   }
+  console.log(isSelected.value);
 
   createPromise(delay)
     .then(value => {
