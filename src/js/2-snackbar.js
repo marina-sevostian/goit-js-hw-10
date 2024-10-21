@@ -1,75 +1,64 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-let delay = document.querySelector('input[name="delay"]');
-const btnCreatePromise = document.querySelector('button[type="submit"]');
-const isSelected = document.getElementsByName('state');
-// const isSelected = document.querySelector(
-//   'input[type="radio"][name="state"]:checked'
-// );
-// if (isSelected !== null) {
-//   console.log('Radio selected');
-// }
+const formEl = document.querySelector('.form');
+const btnEl = document.querySelector('button[type="submit"]');
 
-let isSuccess;
+let shouldResolve;
 
 function createPromise(delay) {
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (isSelected.value === fulfilled) {
-        isSuccess = true;
+      const isSelected = document.querySelector(
+        'input[type="radio"][name="state"]:checked'
+      ).value;
+      if (isSelected === 'fulfilled') {
+        shouldResolve = true;
       } else {
-        isSuccess = false;
+        shouldResolve = false;
       }
 
-      if (isSuccess) {
-        resolve(value);
+      if (shouldResolve) {
+        resolve(delay);
       } else {
-        reject(error);
+        reject(delay);
       }
     }, delay);
   });
   return promise;
 }
 
-btnCreatePromise.addEventListener('submit', event => {
-  event.preventDefault();
-  delay = Number(delay.value);
-  for (let index = 0; index <= inputRadio.length; index++) {
-    if (isSelected[index].checked) {
-      isSelected.value = isSelected[index].value;
-      break;
-    }
-  }
-  console.log(isSelected.value);
-
+formEl.addEventListener('submit', e => {
+  e.preventDefault();
+  let delay = formEl.delay.value;
   createPromise(delay)
     .then(value => {
       iziToast.success({
         title: 'OK',
-        message: '✅ Fulfilled promise in ${delay}ms',
+        message: `✅ Fulfilled promise in ${delay} ms`,
         color: '#59a10d',
-        timeout: '${delay}',
-        //   close: true,
+        close: false,
       });
     })
     .catch(error => {
       iziToast.error({
         title: 'Error',
-        message: '❌ Rejected promise in ${delay}ms',
+        message: `❌ Rejected promise in ${delay} ms`,
         color: '#ef4040',
-        timeout: '${delay}',
-        //   close: true,
+        close: false,
       });
+    })
+    .finally(() => {
+      formEl.reset();
+      console.log('finally');
     });
 });
 
 // iziToast.warning({
 //   title: 'Caution',
-//   message: 'You forgot important data',
+//   message: `You forgot important data`,
 //   color: '#ffa000',
-//   //   need position left for close
-//   close: true,
+//   close: false,
 // });
 // iziToast.info({
 //   iconUrl: './img/informing-icon.svg',
