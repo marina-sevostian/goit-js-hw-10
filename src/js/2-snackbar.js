@@ -7,11 +7,11 @@ const btnEl = document.querySelector('button[type="submit"]');
 let shouldResolve;
 
 function createPromise(delay) {
+  const isSelected = document.querySelector(
+    'input[type="radio"][name="state"]:checked'
+  ).value;
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
-      const isSelected = document.querySelector(
-        'input[type="radio"][name="state"]:checked'
-      ).value;
       if (isSelected === 'fulfilled') {
         shouldResolve = true;
       } else {
@@ -30,7 +30,8 @@ function createPromise(delay) {
 
 formEl.addEventListener('submit', e => {
   e.preventDefault();
-  let delay = formEl.delay.value;
+  let delay = Number.parseInt(formEl.delay.value);
+
   createPromise(delay)
     .then(value => {
       iziToast.success({
