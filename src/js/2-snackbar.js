@@ -50,7 +50,6 @@ formEl.addEventListener('submit', e => {
     })
     .finally(() => {
       formEl.reset();
-      console.log('finally');
     });
 });
 
